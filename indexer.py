@@ -1,48 +1,53 @@
 import os
 import sys
 import time
+import platform
 
 print"""
 ,---.    |                |              ,---.,---.
 |---|,---|.    ,,---.,---.|--- .   .,---.|   |`---.
 |   ||   | \  / |---'|   ||    |   ||    |   |    |
 `   '`---'  `'  `---'`   '`---'`---'`    `---'`---'
-            welcome to indexer v0.0.01
+            welcome to indexer v0.0.02
 """
+s_path = os.getcwd() #where the game is
 running=True
 working=False #When indexing a folder
 l = check_lm = ""
 message_wait="[>] Waiting game's output."
-f= os.path.join("cwd")
+f = os.path.join(s_path,"cwd")
 f_lm = os.path.getmtime(f)
-s_path = os.getcwd() #where the game is
+
 command=""
-os.system('color 3')
+if platform.system()=="Windows":
+    os.system('color 3')
 
 def check_command():
     try:
         with open(f, 'r') as the_file: 
-            output= the_file.readline()
+            output = the_file.readline()
             if "!" in output:
-                command=output[1:]
-                return command
+                return output[1:]
     except:
-       command=""
+       return ""
 
 def index_folder(the_file):
-    os.chdir(command)
+    if "\n" in command:
+        os.chdir(unicode(command[:-1]))
+    else:
+        os.chdir(unicode(command))
     files = [f for f in os.listdir('.')]
     for i in files:
         if os.path.isdir(i):
             ftype=">"
         else:
             ftype="*"
-        
-        the_file.write(ftype+i+"\n")
+        if i[0]!=".":
+            the_file.write(ftype+i+"\n")
     os.chdir(s_path)
 
 while running==True:
-    command=check_command()
+    command = check_command()
     if working==False:
         if l!= message_wait:
             l = message_wait
@@ -54,15 +59,18 @@ while running==True:
         if f_lm!= check_lm: #Start working
             working=True
             l=""
-    if working==True:
+    else:
         if command!="":
-            try:
+            #try:
                 with open(f, 'w') as the_file:
                     index_folder(the_file)
                     working=False
                 f_lm = os.path.getmtime(f)
-                
+
                 print "[>] Indexing folder"
-            except:
-                print "[!] Re-trying to read the file."
+
+            #except:
+            #    print "[!] Re-trying to read the file."
     time.sleep(0.1)
+    
+ 

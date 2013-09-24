@@ -2,31 +2,28 @@ import os
 import sys
 import time
 import platform
+if platform.system()=="Windows": os.system('color 3')
 
 print"""
 ,---.    |                |              ,---.,---.
 |---|,---|.    ,,---.,---.|--- .   .,---.|   |`---.
 |   ||   | \  / |---'|   ||    |   ||    |   |    |
 `   '`---'  `'  `---'`   '`---'`---'`    `---'`---'
-            welcome to indexer v0.0.02
-"""
-s_path = os.getcwd() #where the game is
+            welcome to indexer v0.0.03"""
+            
+s_path = os.getcwd() #where the program is
 running=True
 working=False #When indexing a folder
-l = check_lm = ""
+l= check_lm= command= ""
 message_wait="[>] Waiting game's output."
 f = os.path.join(s_path,"cwd")
 f_lm = os.path.getmtime(f)
-
-command=""
-if platform.system()=="Windows":
-    os.system('color 3')
 
 def check_command():
     try:
         with open(f, 'r') as the_file: 
             output = the_file.readline()
-            if "!" in output:
+            if output[0]=="!":
                 return output[1:]
     except:
        return ""
@@ -45,6 +42,7 @@ def index_folder(the_file):
         if i[0]!=".":
             the_file.write(ftype+i+"\n")
     os.chdir(s_path)
+    print "[>] Done."
 
 while running==True:
     command = check_command()
@@ -61,16 +59,10 @@ while running==True:
             l=""
     else:
         if command!="":
-            #try:
-                with open(f, 'w') as the_file:
-                    index_folder(the_file)
-                    working=False
-                f_lm = os.path.getmtime(f)
+            with open(f, 'w') as the_file:
+                index_folder(the_file)
+                working=False
+            f_lm = os.path.getmtime(f)
 
-                print "[>] Indexing folder"
-
-            #except:
-            #    print "[!] Re-trying to read the file."
+            print "[>] Indexing folder"
     time.sleep(0.1)
-    
- 

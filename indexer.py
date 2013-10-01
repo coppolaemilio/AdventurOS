@@ -1,15 +1,21 @@
-import os
-import sys
-import time
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Copyright (C) 2012, 2013 Emilio Coppola emilio@evelend.com
+import os, sys ,time
+
+slash="/"
+
 import platform
-if platform.system()=="Windows": os.system('color 3')
+if platform.system()=="Windows": 
+    os.system('color 3')
+    slash="\\"
 
 print"""
 ,---.    |                |              ,---.,---.
 |---|,---|.    ,,---.,---.|--- .   .,---.|   |`---.
 |   ||   | \  / |---'|   ||    |   ||    |   |    |
 `   '`---'  `'  `---'`   '`---'`---'`    `---'`---'
-            welcome to indexer v0.0.03"""
+            welcome to indexer v0.0.04"""
             
 s_path = os.getcwd() #where the program is
 running=True
@@ -33,6 +39,10 @@ def index_folder(the_file):
         os.chdir(unicode(command[:-1]))
     else:
         os.chdir(unicode(command))
+
+    previous_dir= str(os.getcwd()).split(slash)[-2]
+    the_file.write("<"+previous_dir+"\n")
+    
     files = [f for f in os.listdir('.')]
     for i in files:
         if os.path.isdir(i):

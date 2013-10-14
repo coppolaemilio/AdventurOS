@@ -15,7 +15,7 @@ print"""
 |---|,---|.    ,,---.,---.|--- .   .,---.|   |`---.
 |   ||   | \  / |---'|   ||    |   ||    |   |    |
 `   '`---'  `'  `---'`   '`---'`---'`    `---'`---'
-            welcome to indexer v0.0.04"""
+            welcome to indexer v0.0.05"""
             
 s_path = os.getcwd() #where the program is
 running=True
@@ -41,8 +41,9 @@ def index_folder(the_file):
         os.chdir(unicode(command))
 
     previous_dir= str(os.getcwd()).split(slash)[-2]
+    the_file.write("!"+command+"\n")
     the_file.write("<"+previous_dir+"\n")
-    
+
     files = [f for f in os.listdir('.')]
     for i in files:
         if os.path.isdir(i):

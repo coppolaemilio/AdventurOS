@@ -36,9 +36,9 @@ def check_command():
 
 def index_folder(the_file):
     if "\n" in command:
-        os.chdir(unicode(command[:-1]))
+        os.chdir(unicode(command[:-1], "utf8"))
     else:
-        os.chdir(unicode(command))
+        os.chdir(unicode(command, "utf8"))
 
     previous_dir= str(os.getcwd()).split(slash)[-2]
     the_file.write("!"+command+"\n")

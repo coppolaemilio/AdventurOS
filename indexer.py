@@ -2,22 +2,22 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2012, 2013 Emilio Coppola emilio@evelend.com
 import os, sys ,time
-
-slash="/"
-
 import platform
+
 if platform.system()=="Windows": 
     os.system('color 3')
     slash="\\"
-
+    os.path.join(os.environ['LOCALAPPDATA'],"Engine2")
+else:
+    s_path = os.getcwd() #where the cwd file is
+    slash="/"
 print"""
 ,---.    |                |              ,---.,---.
 |---|,---|.    ,,---.,---.|--- .   .,---.|   |`---.
 |   ||   | \  / |---'|   ||    |   ||    |   |    |
 `   '`---'  `'  `---'`   '`---'`---'`    `---'`---'
-            welcome to indexer v0.0.05"""
+            welcome to indexer v0.0.06"""
             
-s_path = os.getcwd() #where the program is
 running=True
 working=False #When indexing a folder
 l= check_lm= command= ""

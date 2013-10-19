@@ -7,7 +7,7 @@ import platform
 if platform.system()=="Windows": 
     os.system('color 3')
     slash="\\"
-    os.path.join(os.environ['LOCALAPPDATA'],"Engine2")
+    s_path = os.path.join(os.environ['LOCALAPPDATA'],"Engine2")
 else:
     s_path = os.getcwd() #where the cwd file is
     slash="/"

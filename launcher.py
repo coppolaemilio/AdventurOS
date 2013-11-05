@@ -1,27 +1,33 @@
-import Tkinter, tkFont
+import Tkinter, tkFont, os
 from urllib2 import urlopen
 
 class Demo:
     def __init__(self):
-        font = tkFont.Font(family="Helvetica",size=43)
-        Tkinter.Label(text='AdventurOS', font=font).pack()
+        photo = Tkinter.PhotoImage(file=os.path.join('files',"launcher.gif"))
+        label = Tkinter.Label(image=photo, bd=-2)
+        label.image = photo
+        label.pack()
+
         Tkinter.Label(text='Launcher v0.0.1').pack()
-        Tkinter.Frame(height=2, bd=1, relief=Tkinter.GROOVE).pack(fill=Tkinter.X, padx=5, pady=5)
-        updates = Tkinter.Text(height=10, width=70)
-        data = urlopen("http://adventuros.evelend.com/include/buildupdates.txt").read()
+        updates = Tkinter.Text(height=10, width=50)
+        url="http://adventuros.evelend.com/include/buildupdates.txt"
+        try:
+            data = urlopen(url).read()
+        except:
+            data = "Error retrieving information from "+url+"\nAre you connected to the intert?"    
         updates.insert(Tkinter.INSERT, data)
         updates.config(state=Tkinter.DISABLED)
         updates.pack()
-        Tkinter.Frame(height=2, bd=1, relief=Tkinter.GROOVE).pack(fill=Tkinter.X, padx=5, pady=5)
-        Tkinter.Button(text='Start Game', command=self.test).pack()
+
+        Tkinter.Button(text='Start Game', command=self.startgame).pack()
         Tkinter.Button(text='Exit', command=exit).pack() 
 
-    def test(self):
-        print "cacaseca"
+    def startgame(self):
+        pass
 
-
-if __name__ == '__main__':
-    root=Tkinter.Tk();
-    root.title("Adventuros");
-    widget = Demo()
-    root.mainloop()
+root=Tkinter.Tk()
+root.resizable(0,0)
+root.title("AdventurOS Launcher")
+root.wm_iconbitmap(os.path.join('files','icon.ico'))
+widget = Demo()
+root.mainloop()

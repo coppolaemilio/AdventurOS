@@ -28,6 +28,5 @@ class Demo:
 root=Tkinter.Tk()
 root.resizable(0,0)
 root.title("AdventurOS Launcher")
-root.wm_iconbitmap(os.path.join('files','icon.ico'))
 widget = Demo()
 root.mainloop()

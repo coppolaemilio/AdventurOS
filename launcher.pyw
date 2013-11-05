@@ -25,8 +25,21 @@ class Demo:
     def startgame(self):
         pass
 
+def center(win):
+    win.update_idletasks()
+    frm_width = win.winfo_rootx() - win.winfo_x()
+    win_width = win.winfo_width() + (frm_width*2)
+    titlebar_height = win.winfo_rooty() - win.winfo_y()
+    win_height = win.winfo_height() + (titlebar_height + frm_width)
+    x = (win.winfo_screenwidth() / 2) - (win_width / 2)
+    y = (win.winfo_screenheight() / 2) - (win_height / 2)
+    geom = (win.winfo_width(), win.winfo_height(), x, y) # see note
+    win.geometry('{0}x{1}+{2}+{3}'.format(*geom))
+
+
 root=Tkinter.Tk()
 root.resizable(0,0)
 root.title("AdventurOS Launcher")
 widget = Demo()
+center(root)
 root.mainloop()

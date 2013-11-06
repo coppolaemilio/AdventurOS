@@ -1,4 +1,4 @@
-import Tkinter, os
+import Tkinter, os, ConfigParser
 from urllib2 import urlopen
 
 class Demo:
@@ -19,27 +19,25 @@ class Demo:
         updates.config(state=Tkinter.DISABLED)
         updates.pack()
 
-        Tkinter.Button(text='Start Game', command=self.startgame).pack()
+        Tkinter.Button(text='Start Game', command=self.center).pack()
+        #Tkinter.Button(text='Settings', command=self.settings).pack()
         Tkinter.Button(text='Exit', command=exit).pack() 
 
-    def startgame(self):
-        pass
 
-def center(win): #by Honest Abe stackoverflow.com
-    win.update_idletasks()
-    frm_width = win.winfo_rootx() - win.winfo_x()
-    win_width = win.winfo_width() + (frm_width*2)
-    titlebar_height = win.winfo_rooty() - win.winfo_y()
-    win_height = win.winfo_height() + (titlebar_height + frm_width)
-    x = (win.winfo_screenwidth() / 2) - (win_width / 2)
-    y = (win.winfo_screenheight() / 2) - (win_height / 2)
-    geom = (win.winfo_width(), win.winfo_height(), x, y)
-    win.geometry('{0}x{1}+{2}+{3}'.format(*geom))
-
+    def center(self, win): #by Honest Abe stackoverflow.com
+        win.update_idletasks()
+        frm_width = win.winfo_rootx() - win.winfo_x()
+        win_width = win.winfo_width() + (frm_width*2)
+        titlebar_height = win.winfo_rooty() - win.winfo_y()
+        x = (win.winfo_screenwidth() / 2) - (win_width / 2)
+        win_height = win.winfo_height() + (titlebar_height + frm_width)
+        y = (win.winfo_screenheight() / 2) - (win_height / 2)
+        geom = (win.winfo_width(), win.winfo_height(), x, y)
+        win.geometry('{0}x{1}+{2}+{3}'.format(*geom))
 
 root=Tkinter.Tk()
 root.resizable(0,0)
 root.title("AdventurOS Launcher")
 widget = Demo()
-center(root)
+widget.center(root)
 root.mainloop()

@@ -1,6 +1,14 @@
 import Tkinter, os, ConfigParser
 from urllib2 import urlopen
 
+from sys import platform as _platform
+if _platform == "linux" or _platform == "linux2":
+    print "GNU/Linux"
+elif _platform == "darwin":
+    print "OSX"
+elif _platform == "win32":
+    print "Windows"
+
 class Demo:
     def __init__(self):
         photo = Tkinter.PhotoImage(file=os.path.join('files',"launcher.gif"))
@@ -9,7 +17,7 @@ class Demo:
         label.pack()
 
         Tkinter.Label(text='Launcher v0.0.1').pack()
-        updates = Tkinter.Text(height=10, width=50)
+        updates = Tkinter.Text(height=10, width=49)
         url="http://adventuros.evelend.com/include/buildupdates.txt"
         try:
             data = urlopen(url).read()

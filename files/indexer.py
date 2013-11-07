@@ -5,9 +5,8 @@ import os, sys ,time
 import platform
 
 if platform.system()=="Windows": 
-    os.system('color 3')
     slash="\\"
-    s_path = os.path.join(os.environ['LOCALAPPDATA'],"Engine2")
+    s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")
 else:
     s_path = os.getcwd() #where the cwd file is
     slash="/"

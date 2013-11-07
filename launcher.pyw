@@ -1,23 +1,18 @@
 import Tkinter, os, ConfigParser
 from urllib2 import urlopen
-
 from sys import platform as _platform
-if _platform == "linux" or _platform == "linux2":
-    print "GNU/Linux"
-elif _platform == "darwin":
-    print "OSX"
-elif _platform == "win32":
-    print "Windows"
+import shutil
 
-class Demo:
+class Launcher:
     def __init__(self):
+        root.configure(background='white')
         photo = Tkinter.PhotoImage(file=os.path.join('files',"launcher.gif"))
         label = Tkinter.Label(image=photo, bd=-2)
         label.image = photo
         label.pack()
 
-        Tkinter.Label(text='Launcher v0.0.1').pack()
-        updates = Tkinter.Text(height=10, width=49)
+        Tkinter.Label(text='Launcher v0.0.1', background="white").pack()
+        updates = Tkinter.Text(height=10, width=49, bd=0)
         url="http://adventuros.evelend.com/include/buildupdates.txt"
         try:
             data = urlopen(url).read()
@@ -27,10 +22,29 @@ class Demo:
         updates.config(state=Tkinter.DISABLED)
         updates.pack()
 
-        Tkinter.Button(text='Start Game', command=self.center).pack()
+        Tkinter.Button(text='Start Game', command=self.start_game).pack()
         #Tkinter.Button(text='Settings', command=self.settings).pack()
         Tkinter.Button(text='Exit', command=exit).pack() 
 
+    def start_game(self):
+        if _platform == "linux" or _platform == "linux2":
+            print "GNU/Linux"
+        elif _platform == "darwin":
+            print "OSX"
+        elif _platform == "win32":
+            s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")+"/"
+            if os.path.exists(s_path)==False:
+                os.mkdir(s_path)
+            shutil.copyfile('config.ini', s_path+"config.ini")
+            try:
+               with open(s_path+"cwd"):
+                   pass
+            except:
+                with open(s_path+"cwd", 'a'):
+                    os.utime(s_path+"cwd", None)
+
+            os.startfile(os.path.join('files', 'indexer.py'))
+            root.destroy()
 
     def center(self, win): #by Honest Abe stackoverflow.com
         win.update_idletasks()
@@ -46,6 +60,6 @@ class Demo:
 root=Tkinter.Tk()
 root.resizable(0,0)
 root.title("AdventurOS Launcher")
-widget = Demo()
+widget = Launcher()
 widget.center(root)
 root.mainloop()

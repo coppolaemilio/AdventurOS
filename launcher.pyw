@@ -35,7 +35,10 @@ class Launcher:
             s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")+"/"
             if os.path.exists(s_path)==False:
                 os.mkdir(s_path)
+
             shutil.copyfile('config.ini', s_path+"config.ini")
+            shutil.copyfile('saves.ini', s_path+"saves.ini")
+            
             try:
                with open(s_path+"cwd"):
                    pass
@@ -43,8 +46,16 @@ class Launcher:
                 with open(s_path+"cwd", 'a'):
                     os.utime(s_path+"cwd", None)
 
+            self.copy_dir('main', s_path+"main/")
+
             os.startfile(os.path.join('files', 'indexer.py'))
+            os.startfile(os.path.join('files', 'engine.exe'))
             root.destroy()
+
+    def copy_dir(self, from_path, to_path):
+        if os.path.exists(to_path):
+            shutil.rmtree(to_path)
+        shutil.copytree(from_path, to_path)
 
     def center(self, win): #by Honest Abe stackoverflow.com
         win.update_idletasks()

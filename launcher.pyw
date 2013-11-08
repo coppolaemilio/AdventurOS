@@ -30,7 +30,26 @@ class Launcher:
         if _platform == "linux" or _platform == "linux2":
             print "GNU/Linux"
         elif _platform == "darwin":
-            print "OSX"
+            s_path = os.path.join('files','engine.app','Contents', 'Resources')+"/"
+            if os.path.exists(s_path)==False:
+                os.mkdir(s_path)
+
+            shutil.copyfile('config.ini', s_path+"config.ini")
+            shutil.copyfile('saves.ini', s_path+"saves.ini")
+            
+            try:
+               with open(s_path+"cwd"):
+                   pass
+            except:
+                with open(s_path+"cwd", 'a'):
+                    os.utime(s_path+"cwd", None)
+
+            self.copy_dir('main', s_path+"main/")
+
+            #os.startfile(os.path.join('files', 'indexer.py'))
+            #os.startfile(os.path.join('files', 'engine.exe'))
+            root.destroy()
+
         elif _platform == "win32":
             s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")+"/"
             if os.path.exists(s_path)==False:

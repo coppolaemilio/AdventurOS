@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2012, 2013 Emilio Coppola emilio@evelend.com
 import os, sys ,time
-import platform
+from sys import platform as _platform
 
-if platform.system()=="Windows": 
+if _platform == "win32": 
     slash="\\"
     s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")
+elif _platform == "darwin":
+    slash="/"
+    s_path = os.path.join(os.getcwd(),'files', 'engine.app','Contents', 'Resources')
 else:
     s_path = os.getcwd() #where the cwd file is
     slash="/"

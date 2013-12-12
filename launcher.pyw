@@ -48,6 +48,7 @@ class Launcher:
 
             #os.startfile(os.path.join('files', 'indexer.py'))
             #os.startfile(os.path.join('files', 'engine.exe'))
+            os.system("open "+os.path.join('files', 'engine.app'))
             root.destroy()
 
         elif _platform == "win32":

@@ -11,26 +11,29 @@ class Launcher:
         label.image = photo
         label.pack()
 
-        Tkinter.Label(text='Launcher v0.0.1', background="white").pack()
+        Tkinter.Label(text='Launcher v0.0.2', background="white").pack()
         updates = Tkinter.Text(height=10, width=49, bd=0)
         url="http://adventuros.evelend.com/include/buildupdates.txt"
         try:
             data = urlopen(url).read()
         except:
-            data = "Error retrieving information from "+url+"\nAre you connected to the intert?"    
+            data = "Error retrieving information from "+url+"\nAre you connected to the internet?"    
         updates.insert(Tkinter.INSERT, data)
         updates.config(state=Tkinter.DISABLED)
         updates.pack()
 
         Tkinter.Button(text='Start Game', command=self.start_game).pack()
-        #Tkinter.Button(text='Settings', command=self.settings).pack()
+        Tkinter.Button(text='Check for updates', command=self.update).pack()
         Tkinter.Button(text='Exit', command=exit).pack() 
+
+    def update(self):
+    	print "fuck yeah"
 
     def start_game(self):
         if _platform == "linux" or _platform == "linux2":
             print "GNU/Linux"
         elif _platform == "darwin":
-            s_path = os.path.join('files','engine.app','Contents', 'Resources')+"/"
+            s_path = os.path.join('AdventurOS.app','Contents', 'Resources')+"/"
             if os.path.exists(s_path)==False:
                 os.mkdir(s_path)
 
@@ -46,30 +49,13 @@ class Launcher:
 
             self.copy_dir('main', s_path+"main/")
 
-            #os.startfile(os.path.join('files', 'indexer.py'))
-            #os.startfile(os.path.join('files', 'engine.exe'))
-            os.system("open "+os.path.join('files', 'engine.app'))
+            os.system("open "+os.path.join('AdventurOS.app'))
+            os.system("python "+os.path.join('indexer.py'))
             root.destroy()
 
         elif _platform == "win32":
-            s_path = os.path.join(os.environ['LOCALAPPDATA'],"AdventurOS")+"/"
-            if os.path.exists(s_path)==False:
-                os.mkdir(s_path)
-
-            shutil.copyfile('config.ini', s_path+"config.ini")
-            shutil.copyfile('saves.ini', s_path+"saves.ini")
-            
-            try:
-               with open(s_path+"cwd"):
-                   pass
-            except:
-                with open(s_path+"cwd", 'a'):
-                    os.utime(s_path+"cwd", None)
-
-            self.copy_dir('main', s_path+"main/")
-
-            os.startfile(os.path.join('files', 'indexer.py'))
-            os.startfile(os.path.join('files', 'engine.exe'))
+            os.startfile(os.path.join('indexer.py'))
+            os.startfile('AdventurOS.exe')
             root.destroy()
 
     def copy_dir(self, from_path, to_path):

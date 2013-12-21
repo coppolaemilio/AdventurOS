@@ -39,4 +39,4 @@ This repository will contain all the content needed for creating AdventurOS mods
 
 
 ==========
-Have a question? [Ask on our help desk.](http://adventuros.evelend.com/help.php)
+Have a question? [Ask on our help desk.](http://adventuros.evelend.com/help/)
